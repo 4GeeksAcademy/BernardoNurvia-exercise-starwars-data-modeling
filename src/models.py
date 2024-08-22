@@ -17,35 +17,35 @@ class User(Base):
     last_name= Column(String(50), nullable=False)
     address = Column(String(150), nullable=False)
     starships_favorites = Column(Integer, ForeignKey('starships_favorites.id'))
-    starships_favorites_relationship = relationship('StarshipsFavorites', back_populates='user_id_relarelationship')
+    starships_favorites_relationship = relationship('StarshipsFavorites', back_populates='user_id_relationship')
     vehicles_favorites = Column(Integer, ForeignKey('vehicles_favorites.id'))
-    vehicles_favorites_relationship = relationship('VehiclesFavorites', back_populates='user_id_relarelationship')
+    vehicles_favorites_relationship = relationship('VehiclesFavorites', back_populates='user_id_relationship')
     planets_favorites = Column(Integer, ForeignKey('planets_favorites.id'))
-    planets_favorites_relationship = relationship('PlanetsFavorites', back_populates='user_id_relarelationship')
+    planets_favorites_relationship = relationship('PlanetsFavorites', back_populates='user_id_relationship')
     characters_favorites = Column(Integer, ForeignKey('characters_favorites.id'))
-    characters_favorites_relationship= relationship('CharactersFavorites', back_populates='user_id_relarelationship')
+    characters_favorites_relationship= relationship('CharactersFavorites', back_populates='user_id_relationship')
 
 class CharactersFavorites(Base):
     __tablename__='characters_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    user_id_relarelationship = relationship('User', back_populates='characters_favorites_relationship')
+    user_id_relationship = relationship('User', back_populates='characters_favorites_relationship')
     character_favorite = Column(Integer, ForeignKey('characters.id'))
-    character_favorite_realationship= relationship('Character', back_populates='id_relationship')
+    character_favorite_relationship= relationship('Character', back_populates='id_relationship')
 
 class PlanetsFavorites(Base):
     __tablename__ = 'planets_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    user_id_relarelationship = relationship('User', back_populates='planets_favorites_relationship')
+    user_id_relationship = relationship('User', back_populates='planets_favorites_relationship')
     planet_favorite = Column(Integer, ForeignKey('planets_favorites.id'))
-    planet_favorite_realationship= relationship('Planet', back_populates='id_relationship')
+    planet_favorite_relationship= relationship('Planet', back_populates='id_relationship')
 
 class StarshipsFavorites(Base):
     __tablename__ = 'starships_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    user_id_relarelationship = relationship('User', back_populates='starships_favorites_relationship')
+    user_id_relationship = relationship('User', back_populates='starships_favorites_relationship')
     starship_favorite= Column(Integer, ForeignKey('starship.id'))
     starship_favorite_relationship = relationship('Starship', back_populates='id_relationship')
 
@@ -67,7 +67,6 @@ class Starship(Base):
     mglt = Column(Integer) 
     cargo_capacity = Column(Integer)
     consumables = Column(String(50)) 
-    name = Column(String(100))
     pilots = Column(Integer, ForeignKey('characters.id'))
     pilots_relationship = relationship('Character', back_populates='starship_pilot_relationship')
    
@@ -75,7 +74,7 @@ class VehiclesFavorites(Base):
     __tablename__ = 'vehicles_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    user_id_relarelationship = relationship('User', back_populates='vehicles_favorites_relationship')
+    user_id_relationship = relationship('User', back_populates='vehicles_favorites_relationship')
     vehicle_favorite = Column(Integer, ForeignKey('vehicle.id'))
     vehicle_favorite_relationship = relationship('Vehicle', back_populates='id_relationship')
 
@@ -101,7 +100,7 @@ class Vehicle(Base):
 class Character(Base):
     __tablename__ = 'characters'
     id = Column(Integer, ForeignKey('characters_favorites.character_favorite'), primary_key=True)
-    id_relationship= relationship('CharactersFavorites', back_populates='character_favorite_realationship')
+    id_relationship= relationship('CharactersFavorites', back_populates='character_favorite_relationship')
     uid = Column(Integer, nullable=False)
     name = Column(String(114), nullable=False)
     gender = Column(String(20), nullable=False)
@@ -122,7 +121,7 @@ class Character(Base):
 class Planet(Base):
     __tablename__ = 'planets'
     id = Column(Integer, ForeignKey('planets_favorites.id'), primary_key=True)
-    id_relationship= relationship('PlanetsFavorites', back_populates='planet_favorite_realationship')
+    id_relationship= relationship('PlanetsFavorites', back_populates='planet_favorite_relationship')
     uid = Column(Integer, nullable=False)
     name = Column(String(114), nullable=False)
     population = Column(String(30), nullable=False)
